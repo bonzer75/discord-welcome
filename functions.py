@@ -17,7 +17,7 @@ def create_image(url, text, output_path):
 
         frame_draw = ImageDraw.Draw(frame)
         frame_draw.text((140, 200), text, font=fuente)
-        frame.paste(pfp, (100, 100))
+        frame.paste(pfp, (250, 90))
         del frame_draw
 
         bytes_img = io.BytesIO()
