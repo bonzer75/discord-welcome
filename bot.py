@@ -1,6 +1,9 @@
+import os
 import discord
-from discord import File
-from easy_pil import Editor, load_image_async, Font
+from dotenv import load_dotenv
+from functions import create_image
+
+load_dotenv()
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -16,19 +19,16 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
+    user = member.name
+    user_id = member.guild.id
+    avatar = client.get_user(user_id)
     channel = client.get_channel(849295547210137630)
+    text = f"BIENVENIDO {user}"
 
-    bg = Editor("nyan-cat.gif")
-    profile = await load_image_async(f'{member.avatar.url}')
-    pfp = Editor(profile).resize((150, 150)).circle_image()
-    h1 = Font.poppins(size=50, variant="bold")
+    create_image(avatar, text, "out.gif")
 
-    bg.paste(pfp, (325, 90))
-#bg.eclipse((325, 90), 150, 150, outline="white", stroke_width=5)
-    bg.text((400, 260), f"BIENVENIDO {member.name}", color="white", font=h1, align="center")
-
-    await channel.send(f"Bienvenido {member.name} no olvides mirar las #reglas")
-    await channel.send(file=File(fp=bg.image_bytes, filename="wecolme1.jpg"))
+    await channel.send(f"Bienvenido {user} no olvides mirar las #reglas")
+    await channel.send(file="out.gif")
 
 
 @client.event
@@ -39,5 +39,4 @@ async def on_message(message):
     if message.content.startswith('$hello'):
         await message.channel.send('Hello!')
 
-
-client.run('')
+client.run(os.getenv('TOKEN'))
