@@ -8,8 +8,9 @@ def create_image(url, text, output_path):
     nyancat = Image.open('resources/nyan-cat.gif')
     download_image(url)
     pfp = Image.open("resources/pfp.jpg")
+    pfp = pfp.resize((128, 128))
     fuente = ImageFont.truetype("resources/arial.ttf", 45)
-    print(nyancat.size[1] / 2, nyancat.size[0] / 2.5)
+    # print(nyancat.size[1] / 2, nyancat.size[0] / 2.5)
 
     frames = []
 
@@ -17,7 +18,7 @@ def create_image(url, text, output_path):
 
         frame_draw = ImageDraw.Draw(frame)
         frame_draw.text((140, 200), text, font=fuente)
-        frame.paste(pfp, (250, 90))
+        frame.paste(pfp, (250, 80))
         del frame_draw
 
         bytes_img = io.BytesIO()
