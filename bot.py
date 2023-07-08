@@ -29,7 +29,6 @@ async def on_member_join(member):
     create_image(str(member.avatar), text, "resources/out.gif")
 
     await channel.send(f"Bienvenido {user} no olvides mirar las #reglas")
-    time.sleep(3)
     await channel.send(file=discord.File("resources/out.gif"))
 
 
